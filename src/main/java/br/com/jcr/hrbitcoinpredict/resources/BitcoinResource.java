@@ -26,6 +26,11 @@ public class BitcoinResource {
 
     private static final String successMessage =  "Predição realizada com sucesso!";
 
+    @GetMapping("/teste")
+    public String teste(){
+        return "Teste";
+    }
+
     @Operation(summary = "Performs the prediction through the values of OPEN, HIGH and LOW")
     @PostMapping
     public ResponseEntity<ResultData<FullBitcoin>> getBitcoinPredictBySimpleBitcoinPredict(@RequestBody SimpleBitcoinPredict simpleBitcoinPredict) throws TranslateException {
