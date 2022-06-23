@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 @Slf4j
@@ -68,7 +69,7 @@ public class BitcoinResource {
                 .build().toString()
         ));
         ResultData resultData;
-        LocalDate date = LocalDate.now();
+        LocalDate date = LocalDate.now(ZoneId.of("America/Sao_Paulo"));
         FullBitcoin fullBitcoin = bitcoinService.getBitcoinPredictByDate(date);
         resultData = new ResultData(
                 HttpStatus.OK.value(),
