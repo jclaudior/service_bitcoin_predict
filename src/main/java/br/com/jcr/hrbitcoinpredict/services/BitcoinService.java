@@ -13,6 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class BitcoinService {
@@ -22,6 +23,12 @@ public class BitcoinService {
 
     @Autowired
     private WebClient webClient;
+
+    private static final DateTimeFormatter monthFormatter
+            = DateTimeFormatter.ofPattern("MM");
+
+    private static final DateTimeFormatter dayFormatter
+            = DateTimeFormatter.ofPattern("dd");
 
     public FullBitcoin getBitcoinPredictBySimpleBitcoin(SimpleBitcoin simpleBitcoin) throws TranslateException {
 
@@ -33,11 +40,12 @@ public class BitcoinService {
 
 
     public FullBitcoin getBitcoinPredictByDate(@NonNull LocalDate date) throws TranslateException {
+
         Mono<BitcoinSummary> bitcoinSummaryMono = webClient.get()
                 .uri(
                         "/dailySummary/BTC/{day}/{month}/{year}",
-                        date.getDayOfMonth(),
-                        date.getMonthValue(),
+                        date.format(dayFormatter),
+                        date.format(monthFormatter),
                         date.getYear()
                 )
                 .retrieve()
