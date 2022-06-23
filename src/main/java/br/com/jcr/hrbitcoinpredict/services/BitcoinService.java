@@ -40,6 +40,7 @@ public class BitcoinService {
 
 
     public FullBitcoin getBitcoinPredictByDate(@NonNull LocalDate date) throws TranslateException {
+
         Mono<BitcoinSummary> bitcoinSummaryMono = webClient.get()
                 .uri(
                         "/dailySummary/BTC/{day}/{month}/{year}",
